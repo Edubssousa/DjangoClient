@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.clientsList, name="clientsList"),
-    path("ClientCrud/", views.ClientCRUD, name='index'),
+    path("ClientCrud/<int:pk>/", views.ClientCRUD, name='index'),# testar o pk que talvez seja id
    
 ]

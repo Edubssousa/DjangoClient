@@ -22,10 +22,20 @@ def clientsList(request):
     
 
 # classe resposável pelo CRUD de um client
-@api_view(['GET'])
-def ClientCRUD(request):
+@api_view(['GET', 'POST', 'PUT','DELETE'])
+def ClientCRUD(request,pk):
+    try:
+        client = Clients.objects.get(pk=pk)
+    except Clients.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     if request.method == 'GET':
-        return HttpResponse("ClientCRUD")
+        serializer = ClientSerializer(client)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        client.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
